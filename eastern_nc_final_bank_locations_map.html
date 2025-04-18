@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_676faac85e55f1f23b773728bac5d38e {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+</head>
+<body>
+    
+    
+<div style="position: fixed; 
+    bottom: 50px; right: 50px; width: 250px; 
+    border:2px solid grey; z-index:9999; font-size:14px;
+    background-color: white; padding: 10px;
+    border-radius: 5px;
+    ">
+    <p style="margin-top: 0; margin-bottom: 5px;"><b>Bank Branch Location Ratings</b></p>
+    <div style="display: flex; align-items: center; margin-bottom: 5px;">
+        <div style="background-color: darkgreen; width: 20px; height: 20px; border-radius: 50%; margin-right: 10px;"></div>
+        <span>Top Tier (Ranks 1-3)</span>
+    </div>
+    <div style="display: flex; align-items: center; margin-bottom: 5px;">
+        <div style="background-color: green; width: 20px; height: 20px; border-radius: 50%; margin-right: 10px;"></div>
+        <span>High Priority (Ranks 4-6)</span>
+    </div>
+    <div style="display: flex; align-items: center; margin-bottom: 5px;">
+        <div style="background-color: orange; width: 20px; height: 20px; border-radius: 50%; margin-right: 10px;"></div>
+        <span>Medium Priority (Ranks 7-9)</span>
+    </div>
+    <div style="display: flex; align-items: center;">
+        <div style="background-color: lightcoral; width: 20px; height: 20px; border-radius: 50%; margin-right: 10px;"></div>
+        <span>Lower Priority (Ranks 10+)</span>
+    </div>
+    <p style="margin-top: 10px; margin-bottom: 0; font-style: italic; font-size: 12px;">Size indicates overall score</p>
+</div>
+    
+            <div class="folium-map" id="map_676faac85e55f1f23b773728bac5d38e" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_676faac85e55f1f23b773728bac5d38e = L.map(
+                "map_676faac85e55f1f23b773728bac5d38e",
+                {
+                    center: [35.3, -77.5],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 8,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_7cbc5904f3e02ae346b69d3d786c65eb = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_7cbc5904f3e02ae346b69d3d786c65eb.addTo(map_676faac85e55f1f23b773728bac5d38e);
+        
+    
+            var feature_group_88fc234262052e7eb982ad54327f0a62 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_b8247aba923507f69cd769eb425cee19 = L.circleMarker(
+                [35.6127, -77.3664],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.4, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_88fc234262052e7eb982ad54327f0a62);
+        
+    
+        var popup_bdf430ca0883b5d9a2d708290a0ae297 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e39140d31c7361b8a7fc950f525e4e21 = $(`<div id="html_e39140d31c7361b8a7fc950f525e4e21" style="width: 100.0%; height: 100.0%;">Greenville (Pop: 92,000)</div>`)[0];
+                popup_bdf430ca0883b5d9a2d708290a0ae297.setContent(html_e39140d31c7361b8a7fc950f525e4e21);
+            
+        
+
+        circle_marker_b8247aba923507f69cd769eb425cee19.bindPopup(popup_bdf430ca0883b5d9a2d708290a0ae297)
+        ;
+
+        
+    
+    
+            var circle_marker_93906f330e5d1044a9c9a9e384e53aad = L.circleMarker(
+                [34.7541, -77.4302],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.4, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(feature_group_88fc234262052e7eb982ad54327f0a62);
+        
+    
+        var popup_fa9608701a9663f66ff432c5097aa29e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_142d90e52b92bfabc5471ab003936fe0 = $(`<div id="html_142d90e52b92bfabc5471ab003936fe0" style="width: 100.0%; height: 100.0%;">Jacksonville (Pop: 72,000)</div>`)[0];
+                popup_fa9608701a9663f66ff432c5097aa29e.setContent(html_142d90e52b92bfabc5471ab003936fe0);
+            
+        
+
+        circle_marker_93906f330e5d1044a9c9a9e384e53aad.bindPopup(popup_fa9608701a9663f66ff432c5097aa29e)
+        ;
+
+        
+    
+    
+            var circle_marker_6c95cc513c467e3eae8dc24d4e5a76c8 = L.circleMarker(
+                [34.2104, -77.8868],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.4, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_88fc234262052e7eb982ad54327f0a62);
+        
+    
+        var popup_9b7b65e78afebe4fc3cb97344acaf897 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_24ae23fa3f1d57e7132b643ac3ace340 = $(`<div id="html_24ae23fa3f1d57e7132b643ac3ace340" style="width: 100.0%; height: 100.0%;">Wilmington (Pop: 123,000)</div>`)[0];
+                popup_9b7b65e78afebe4fc3cb97344acaf897.setContent(html_24ae23fa3f1d57e7132b643ac3ace340);
+            
+        
+
+        circle_marker_6c95cc513c467e3eae8dc24d4e5a76c8.bindPopup(popup_9b7b65e78afebe4fc3cb97344acaf897)
+        ;
+
+        
+    
+    
+            var circle_marker_8f208ced69745bfedcd64c022fbaf8bd = L.circleMarker(
+                [35.9382, -77.7905],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.4, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(feature_group_88fc234262052e7eb982ad54327f0a62);
+        
+    
+        var popup_a026bd96e72ac60f11ab95c28471056a = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_bc33e2122aac49856ba82fe7e6a0c710 = $(`<div id="html_bc33e2122aac49856ba82fe7e6a0c710" style="width: 100.0%; height: 100.0%;">Rocky Mount (Pop: 54,000)</div>`)[0];
+                popup_a026bd96e72ac60f11ab95c28471056a.setContent(html_bc33e2122aac49856ba82fe7e6a0c710);
+            
+        
+
+        circle_marker_8f208ced69745bfedcd64c022fbaf8bd.bindPopup(popup_a026bd96e72ac60f11ab95c28471056a)
+        ;
+
+        
+    
+    
+            var circle_marker_b1977bcb03702434fc8934135db27f7b = L.circleMarker(
+                [35.1085, -77.0441],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.4, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 2, "stroke": true, "weight": 3}
+            ).addTo(feature_group_88fc234262052e7eb982ad54327f0a62);
+        
+    
+        var popup_1f9900a74d322ad0b32988b08083327c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f662f959210546fec951e2ec30aa5fa0 = $(`<div id="html_f662f959210546fec951e2ec30aa5fa0" style="width: 100.0%; height: 100.0%;">New Bern (Pop: 30,000)</div>`)[0];
+                popup_1f9900a74d322ad0b32988b08083327c.setContent(html_f662f959210546fec951e2ec30aa5fa0);
+            
+        
+
+        circle_marker_b1977bcb03702434fc8934135db27f7b.bindPopup(popup_1f9900a74d322ad0b32988b08083327c)
+        ;
+
+        
+    
+    
+            var circle_marker_024247e4273bea25364011353a15590c = L.circleMarker(
+                [35.3849, -77.9928],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.4, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 2, "stroke": true, "weight": 3}
+            ).addTo(feature_group_88fc234262052e7eb982ad54327f0a62);
+        
+    
+        var popup_a262508e6cc392cc742c6a25aaf01d0a = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_3f7ae64112fd189b1c9e2fe255af6581 = $(`<div id="html_3f7ae64112fd189b1c9e2fe255af6581" style="width: 100.0%; height: 100.0%;">Goldsboro (Pop: 35,000)</div>`)[0];
+                popup_a262508e6cc392cc742c6a25aaf01d0a.setContent(html_3f7ae64112fd189b1c9e2fe255af6581);
+            
+        
+
+        circle_marker_024247e4273bea25364011353a15590c.bindPopup(popup_a262508e6cc392cc742c6a25aaf01d0a)
+        ;
+
+        
+    
+    
+            var circle_marker_cf9a7f9dbd96b693240eb1a13eb74209 = L.circleMarker(
+                [35.7213, -77.9155],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.4, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 3}
+            ).addTo(feature_group_88fc234262052e7eb982ad54327f0a62);
+        
+    
+        var popup_5f5fc8cf214b7fe9b1dbaecb77686d1d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_5fe35da66c7282ef8c97ce58e710c906 = $(`<div id="html_5fe35da66c7282ef8c97ce58e710c906" style="width: 100.0%; height: 100.0%;">Wilson (Pop: 49,000)</div>`)[0];
+                popup_5f5fc8cf214b7fe9b1dbaecb77686d1d.setContent(html_5fe35da66c7282ef8c97ce58e710c906);
+            
+        
+
+        circle_marker_cf9a7f9dbd96b693240eb1a13eb74209.bindPopup(popup_5f5fc8cf214b7fe9b1dbaecb77686d1d)
+        ;
+
+        
+    
+    
+            var circle_marker_2a33908af778f6fef0bcc844c340e8d0 = L.circleMarker(
+                [35.2627, -77.5811],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.4, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 2, "stroke": true, "weight": 3}
+            ).addTo(feature_group_88fc234262052e7eb982ad54327f0a62);
+        
+    
+        var popup_ea1a08e5b54b60fe47c29d36bf5429a7 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_91781ccaedbdb1fe1e63fb02568d3298 = $(`<div id="html_91781ccaedbdb1fe1e63fb02568d3298" style="width: 100.0%; height: 100.0%;">Kinston (Pop: 20,000)</div>`)[0];
+                popup_ea1a08e5b54b60fe47c29d36bf5429a7.setContent(html_91781ccaedbdb1fe1e63fb02568d3298);
+            
+        
+
+        circle_marker_2a33908af778f6fef0bcc844c340e8d0.bindPopup(popup_ea1a08e5b54b60fe47c29d36bf5429a7)
+        ;
+
+        
+    
+    
+            var circle_marker_01ffa3ba7c22eb03260adb0f186d5960 = L.circleMarker(
+                [36.2946, -76.2511],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.4, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 1, "stroke": true, "weight": 3}
+            ).addTo(feature_group_88fc234262052e7eb982ad54327f0a62);
+        
+    
+        var popup_82a5aa783c49286bb4114d5f69545362 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2e21506adfdeaabe7eb74c7b2a05fe3f = $(`<div id="html_2e21506adfdeaabe7eb74c7b2a05fe3f" style="width: 100.0%; height: 100.0%;">Elizabeth City (Pop: 17,000)</div>`)[0];
+                popup_82a5aa783c49286bb4114d5f69545362.setContent(html_2e21506adfdeaabe7eb74c7b2a05fe3f);
+            
+        
+
+        circle_marker_01ffa3ba7c22eb03260adb0f186d5960.bindPopup(popup_82a5aa783c49286bb4114d5f69545362)
+        ;
+
+        
+    
+    
+            feature_group_88fc234262052e7eb982ad54327f0a62.addTo(map_676faac85e55f1f23b773728bac5d38e);
+        
+    
+            var feature_group_a6b1857c6cd8d920c7efec9fdb115837 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_821d0ef01df0d494d918cffcebda05d7 = L.circleMarker(
+                [34.3282, -78.7033],
+                {"bubblingMouseEvents": true, "color": "darkgreen", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkgreen", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 50.0, "stroke": true, "weight": 3}
+            ).addTo(feature_group_a6b1857c6cd8d920c7efec9fdb115837);
+        
+    
+        var popup_d5ed40076bc0f29224cddc779365f090 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_39debbb4bb3966423de5b00b22dcfcb8 = $(`<div id="html_39debbb4bb3966423de5b00b22dcfcb8" style="width: 100.0%; height: 100.0%;">     <h3>Whiteville, Columbus County</h3>     <b>OVERALL RANK: 1 of 12</b><br>     <b>FINAL SCORE: 81.4/100</b><br><br>          <b>Key Metrics:</b><br>     Population: 25,000<br>     Daily Traffic: 8,500<br>     Distance to Nearest Bank: 5.2 miles<br>     Banking Desert Severity: Medium<br>     County Tier Status: 1<br>     Competition Level: Medium<br><br>          <b>Financial Projections:</b><br>     Estimated Annual Profit: $413,500<br>     3-Year ROI: 15.8%<br>     Breakeven Period: 20 months<br>     </div>`)[0];
+                popup_d5ed40076bc0f29224cddc779365f090.setContent(html_39debbb4bb3966423de5b00b22dcfcb8);
+            
+        
+
+        circle_marker_821d0ef01df0d494d918cffcebda05d7.bindPopup(popup_d5ed40076bc0f29224cddc779365f090)
+        ;
+
+        
+    
+    
+            var marker_8b911789579bd2402c8ceeb4ce972726 = L.marker(
+                [34.3282, -78.7033],
+                {
+}
+            ).addTo(feature_group_a6b1857c6cd8d920c7efec9fdb115837);
+        
+    
+            var div_icon_fa5739e22b4361a5c922eb4fb6cd7504 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 12pt; color: white; font-weight: bold; text-align: center;\"\u003e1\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+            marker_8b911789579bd2402c8ceeb4ce972726.setIcon(div_icon_fa5739e22b4361a5c922eb4fb6cd7504);
+        
+    
+                marker_8b911789579bd2402c8ceeb4ce972726.setIcon(div_icon_fa5739e22b4361a5c922eb4fb6cd7504);
+            
+    
+            var circle_marker_7406a2b84649d2e5b9f4d0fd6ca81841 = L.circleMarker(
+                [36.2868, -76.9847],
+                {"bubblingMouseEvents": true, "color": "darkgreen", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkgreen", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 46.43835616438356, "stroke": true, "weight": 3}
+            ).addTo(feature_group_a6b1857c6cd8d920c7efec9fdb115837);
+        
+    
+        var popup_d1c6ac9459f8ba33f257820eeb05d445 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_0f85a1077597b14a9efe6c0fc89e2c44 = $(`<div id="html_0f85a1077597b14a9efe6c0fc89e2c44" style="width: 100.0%; height: 100.0%;">     <h3>Ahoskie, Hertford County</h3>     <b>OVERALL RANK: 2 of 12</b><br>     <b>FINAL SCORE: 76.2/100</b><br><br>          <b>Key Metrics:</b><br>     Population: 21,552<br>     Daily Traffic: 7,800<br>     Distance to Nearest Bank: 8.5 miles<br>     Banking Desert Severity: High<br>     County Tier Status: 1<br>     Competition Level: Low<br><br>          <b>Financial Projections:</b><br>     Estimated Annual Profit: $351,500<br>     3-Year ROI: 14.5%<br>     Breakeven Period: 22 months<br>     </div>`)[0];
+                popup_d1c6ac9459f8ba33f257820eeb05d445.setContent(html_0f85a1077597b14a9efe6c0fc89e2c44);
+            
+        
+
+        circle_marker_7406a2b84649d2e5b9f4d0fd6ca81841.bindPopup(popup_d1c6ac9459f8ba33f257820eeb05d445)
+        ;
+
+        
+    
+    
+            var marker_ebfb5c5632de20a40559a04188f57513 = L.marker(
+                [36.2868, -76.9847],
+                {
+}
+            ).addTo(feature_group_a6b1857c6cd8d920c7efec9fdb115837);
+        
+    
+            var div_icon_ac3cb5a8a5a7addfc556e2a562f15934 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 12pt; color: white; font-weight: bold; text-align: center;\"\u003e2\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+            marker_ebfb5c5632de20a40559a04188f57513.setIcon(div_icon_ac3cb5a8a5a7addfc556e2a562f15934);
+        
+    
+                marker_ebfb5c5632de20a40559a04188f57513.setIcon(div_icon_ac3cb5a8a5a7addfc556e2a562f15934);
+            
+    
+            var circle_marker_64078c8538deeaabafbce180e1ce9f21 = L.circleMarker(
+                [36.3285, -77.5889],
+                {"bubblingMouseEvents": true, "color": "darkgreen", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkgreen", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 42.671232876712324, "stroke": true, "weight": 3}
+            ).addTo(feature_group_a6b1857c6cd8d920c7efec9fdb115837);
+        
+    
+        var popup_59ea3175779224141a2fb72eed740513 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_986a4731ef6cd247fed78d76cd3d4a8c = $(`<div id="html_986a4731ef6cd247fed78d76cd3d4a8c" style="width: 100.0%; height: 100.0%;">     <h3>Halifax, Halifax County</h3>     <b>OVERALL RANK: 3 of 12</b><br>     <b>FINAL SCORE: 70.7/100</b><br><br>          <b>Key Metrics:</b><br>     Population: 30,000<br>     Daily Traffic: 6,800<br>     Distance to Nearest Bank: 10.5 miles<br>     Banking Desert Severity: Medium<br>     County Tier Status: 1<br>     Competition Level: Medium<br><br>          <b>Financial Projections:</b><br>     Estimated Annual Profit: $468,500<br>     3-Year ROI: 14.2%<br>     Breakeven Period: 23 months<br>     </div>`)[0];
+                popup_59ea3175779224141a2fb72eed740513.setContent(html_986a4731ef6cd247fed78d76cd3d4a8c);
+            
+        
+
+        circle_marker_64078c8538deeaabafbce180e1ce9f21.bindPopup(popup_59ea3175779224141a2fb72eed740513)
+        ;
+
+        
+    
+    
+            var marker_de3a0cc1c9f324d7719102565cd7a72b = L.marker(
+                [36.3285, -77.5889],
+                {
+}
+            ).addTo(feature_group_a6b1857c6cd8d920c7efec9fdb115837);
+        
+    
+            var div_icon_95316a794ccf409c7234c372f439ed43 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 12pt; color: white; font-weight: bold; text-align: center;\"\u003e3\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+            marker_de3a0cc1c9f324d7719102565cd7a72b.setIcon(div_icon_95316a794ccf409c7234c372f439ed43);
+        
+    
+                marker_de3a0cc1c9f324d7719102565cd7a72b.setIcon(div_icon_95316a794ccf409c7234c372f439ed43);
+            
+    
+            var circle_marker_94d470744f74e48ccaead09fb89036be = L.circleMarker(
+                [34.6293, -78.6056],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 42.328767123287676, "stroke": true, "weight": 3}
+            ).addTo(feature_group_a6b1857c6cd8d920c7efec9fdb115837);
+        
+    
+        var popup_f81bec6e244cc4989cb0d33d32afcbe9 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a295d21fdc9a3c5a197e1259066c7ec9 = $(`<div id="html_a295d21fdc9a3c5a197e1259066c7ec9" style="width: 100.0%; height: 100.0%;">     <h3>Elizabethtown, Bladen County</h3>     <b>OVERALL RANK: 4 of 12</b><br>     <b>FINAL SCORE: 70.2/100</b><br><br>          <b>Key Metrics:</b><br>     Population: 20,000<br>     Daily Traffic: 7,200<br>     Distance to Nearest Bank: 7.8 miles<br>     Banking Desert Severity: Medium<br>     County Tier Status: 1<br>     Competition Level: Medium<br><br>          <b>Financial Projections:</b><br>     Estimated Annual Profit: $225,500<br>     3-Year ROI: 13.5%<br>     Breakeven Period: 24 months<br>     </div>`)[0];
+                popup_f81bec6e244cc4989cb0d33d32afcbe9.setContent(html_a295d21fdc9a3c5a197e1259066c7ec9);
+            
+        
+
+        circle_marker_94d470744f74e48ccaead09fb89036be.bindPopup(popup_f81bec6e244cc4989cb0d33d32afcbe9)
+        ;
+
+        
+    
+    
+            var marker_cf55d4abbb37b1fdd37b88a2ebed3186 = L.marker(
+                [34.6293, -78.6056],
+                {
+}
+            ).addTo(feature_group_a6b1857c6cd8d920c7efec9fdb115837);
+        
+    
+            var div_icon_6a34f52c9dcb4f4fa58dc1aebcaa2134 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 12pt; color: white; font-weight: bold; text-align: center;\"\u003e4\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+            marker_cf55d4abbb37b1fdd37b88a2ebed3186.setIcon(div_icon_6a34f52c9dcb4f4fa58dc1aebcaa2134);
+        
+    
+                marker_cf55d4abbb37b1fdd37b88a2ebed3186.setIcon(div_icon_6a34f52c9dcb4f4fa58dc1aebcaa2134);
+            
+    
+            var circle_marker_31f9e1a0cc6fc061457e0f0b0af5010b = L.circleMarker(
+                [35.8543, -77.056],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 41.3013698630137, "stroke": true, "weight": 3}
+            ).addTo(feature_group_a6b1857c6cd8d920c7efec9fdb115837);
+        
+    
+        var popup_3d4bfea3d8d7911f29febb1ec175cad8 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_7b1e5a33f0956ebead6dc4b2926b5ff8 = $(`<div id="html_7b1e5a33f0956ebead6dc4b2926b5ff8" style="width: 100.0%; height: 100.0%;">     <h3>Williamston, Martin County</h3>     <b>OVERALL RANK: 5 of 12</b><br>     <b>FINAL SCORE: 68.7/100</b><br><br>          <b>Key Metrics:</b><br>     Population: 22,031<br>     Daily Traffic: 6,500<br>     Distance to Nearest Bank: 12.4 miles<br>     Banking Desert Severity: High<br>     County Tier Status: 1<br>     Competition Level: Low<br><br>          <b>Financial Projections:</b><br>     Estimated Annual Profit: $185,000<br>     3-Year ROI: 13.2%<br>     Breakeven Period: 24 months<br>     </div>`)[0];
+                popup_3d4bfea3d8d7911f29febb1ec175cad8.setContent(html_7b1e5a33f0956ebead6dc4b2926b5ff8);
+            
+        
+
+        circle_marker_31f9e1a0cc6fc061457e0f0b0af5010b.bindPopup(popup_3d4bfea3d8d7911f29febb1ec175cad8)
+        ;
+
+        
+    
+    
+            var marker_054bc923ac3621e44282b065478963a7 = L.marker(
+                [35.8543, -77.056],
+                {
+}
+            ).addTo(feature_group_a6b1857c6cd8d920c7efec9fdb115837);
+        
+    
+            var div_icon_80800d5c3b2a27b5981a330a4ff281fb = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 12pt; color: white; font-weight: bold; text-align: center;\"\u003e5\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+            marker_054bc923ac3621e44282b065478963a7.setIcon(div_icon_80800d5c3b2a27b5981a330a4ff281fb);
+        
+    
+                marker_054bc923ac3621e44282b065478963a7.setIcon(div_icon_80800d5c3b2a27b5981a330a4ff281fb);
+            
+    
+            var circle_marker_7285dd914bf98df2a819983b258cd3d1 = L.circleMarker(
+                [35.9982, -76.9455],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 36.78082191780822, "stroke": true, "weight": 3}
+            ).addTo(feature_group_a6b1857c6cd8d920c7efec9fdb115837);
+        
+    
+        var popup_37c0f304b98bca1c05cc8bf6d2cd10bb = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d3571471ee54b63532c0a7e0424038fe = $(`<div id="html_d3571471ee54b63532c0a7e0424038fe" style="width: 100.0%; height: 100.0%;">     <h3>Windsor, Bertie County</h3>     <b>OVERALL RANK: 6 of 12</b><br>     <b>FINAL SCORE: 62.1/100</b><br><br>          <b>Key Metrics:</b><br>     Population: 18,947<br>     Daily Traffic: 5,200<br>     Distance to Nearest Bank: 15.3 miles<br>     Banking Desert Severity: High<br>     County Tier Status: 1<br>     Competition Level: Low<br><br>          <b>Financial Projections:</b><br>     Estimated Annual Profit: $136,250<br>     3-Year ROI: 12.5%<br>     Breakeven Period: 26 months<br>     </div>`)[0];
+                popup_37c0f304b98bca1c05cc8bf6d2cd10bb.setContent(html_d3571471ee54b63532c0a7e0424038fe);
+            
+        
+
+        circle_marker_7285dd914bf98df2a819983b258cd3d1.bindPopup(popup_37c0f304b98bca1c05cc8bf6d2cd10bb)
+        ;
+
+        
+    
+    
+            var marker_001bd362cefa05f9baf584d7e35ec737 = L.marker(
+                [35.9982, -76.9455],
+                {
+}
+            ).addTo(feature_group_a6b1857c6cd8d920c7efec9fdb115837);
+        
+    
+            var div_icon_d1d31796e5cc779a933410f29f8f0fa6 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 12pt; color: white; font-weight: bold; text-align: center;\"\u003e6\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+            marker_001bd362cefa05f9baf584d7e35ec737.setIcon(div_icon_d1d31796e5cc779a933410f29f8f0fa6);
+        
+    
+                marker_001bd362cefa05f9baf584d7e35ec737.setIcon(div_icon_d1d31796e5cc779a933410f29f8f0fa6);
+            
+    
+            var circle_marker_45a2bbffd12042555d9e8e45c8797be1 = L.circleMarker(
+                [35.4521, -77.6764],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 35.06849315068493, "stroke": true, "weight": 3}
+            ).addTo(feature_group_a6b1857c6cd8d920c7efec9fdb115837);
+        
+    
+        var popup_acc6aee55674427ad9b6402765678364 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_fe6b664316fe805ccf35ebaf12f2f8e8 = $(`<div id="html_fe6b664316fe805ccf35ebaf12f2f8e8" style="width: 100.0%; height: 100.0%;">     <h3>Snow Hill, Greene County</h3>     <b>OVERALL RANK: 7 of 12</b><br>     <b>FINAL SCORE: 59.6/100</b><br><br>          <b>Key Metrics:</b><br>     Population: 15,000<br>     Daily Traffic: 5,800<br>     Distance to Nearest Bank: 14.3 miles<br>     Banking Desert Severity: Medium<br>     County Tier Status: 1<br>     Competition Level: Low<br><br>          <b>Financial Projections:</b><br>     Estimated Annual Profit: $58,500<br>     3-Year ROI: 11.2%<br>     Breakeven Period: 27 months<br>     </div>`)[0];
+                popup_acc6aee55674427ad9b6402765678364.setContent(html_fe6b664316fe805ccf35ebaf12f2f8e8);
+            
+        
+
+        circle_marker_45a2bbffd12042555d9e8e45c8797be1.bindPopup(popup_acc6aee55674427ad9b6402765678364)
+        ;
+
+        
+    
+    
+            var marker_4f3da74c795f6d648d78a2a123ed0fbc = L.marker(
+                [35.4521, -77.6764],
+                {
+}
+            ).addTo(feature_group_a6b1857c6cd8d920c7efec9fdb115837);
+        
+    
+            var div_icon_bbdf4e936e958d7ec0023b070e569d8a = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 12pt; color: white; font-weight: bold; text-align: center;\"\u003e7\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+            marker_4f3da74c795f6d648d78a2a123ed0fbc.setIcon(div_icon_bbdf4e936e958d7ec0023b070e569d8a);
+        
+    
+                marker_4f3da74c795f6d648d78a2a123ed0fbc.setIcon(div_icon_bbdf4e936e958d7ec0023b070e569d8a);
+            
+    
+            var circle_marker_e54e1f6b8b5de7f7e414a73bac7c7d04 = L.circleMarker(
+                [35.8668, -76.7485],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 33.013698630136986, "stroke": true, "weight": 3}
+            ).addTo(feature_group_a6b1857c6cd8d920c7efec9fdb115837);
+        
+    
+        var popup_3ab80f50725848274071f1ab399eaf19 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_232e1cd780b6e73599ddcce673a3db58 = $(`<div id="html_232e1cd780b6e73599ddcce673a3db58" style="width: 100.0%; height: 100.0%;">     <h3>Plymouth, Washington County</h3>     <b>OVERALL RANK: 8 of 12</b><br>     <b>FINAL SCORE: 56.6/100</b><br><br>          <b>Key Metrics:</b><br>     Population: 11,003<br>     Daily Traffic: 4,800<br>     Distance to Nearest Bank: 18.6 miles<br>     Banking Desert Severity: High<br>     County Tier Status: 1<br>     Competition Level: Low<br><br>          <b>Financial Projections:</b><br>     Estimated Annual Profit: $3,500<br>     3-Year ROI: 10.8%<br>     Breakeven Period: 28 months<br>     </div>`)[0];
+                popup_3ab80f50725848274071f1ab399eaf19.setContent(html_232e1cd780b6e73599ddcce673a3db58);
+            
+        
+
+        circle_marker_e54e1f6b8b5de7f7e414a73bac7c7d04.bindPopup(popup_3ab80f50725848274071f1ab399eaf19)
+        ;
+
+        
+    
+    
+            var marker_68316c55ca7820fa5e16ba88a4d7faf1 = L.marker(
+                [35.8668, -76.7485],
+                {
+}
+            ).addTo(feature_group_a6b1857c6cd8d920c7efec9fdb115837);
+        
+    
+            var div_icon_6105b143dd2c4b6eccdf09da7ff35df8 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 12pt; color: white; font-weight: bold; text-align: center;\"\u003e8\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+            marker_68316c55ca7820fa5e16ba88a4d7faf1.setIcon(div_icon_6105b143dd2c4b6eccdf09da7ff35df8);
+        
+    
+                marker_68316c55ca7820fa5e16ba88a4d7faf1.setIcon(div_icon_6105b143dd2c4b6eccdf09da7ff35df8);
+            
+    
+            var circle_marker_177e2099cf6233475990218f9dbe4e50 = L.circleMarker(
+                [36.3896, -77.4211],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 28.28767123287671, "stroke": true, "weight": 3}
+            ).addTo(feature_group_a6b1857c6cd8d920c7efec9fdb115837);
+        
+    
+        var popup_9cf9d17e4958e7f36d18dbb6d7974f1a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_81fb7082baf843678110a75c2e5c5f56 = $(`<div id="html_81fb7082baf843678110a75c2e5c5f56" style="width: 100.0%; height: 100.0%;">     <h3>Jackson, Northampton County</h3>     <b>OVERALL RANK: 9 of 12</b><br>     <b>FINAL SCORE: 49.7/100</b><br><br>          <b>Key Metrics:</b><br>     Population: 17,471<br>     Daily Traffic: 3,900<br>     Distance to Nearest Bank: 22.1 miles<br>     Banking Desert Severity: High<br>     County Tier Status: 1<br>     Competition Level: Low<br><br>          <b>Financial Projections:</b><br>     Estimated Annual Profit: $-78,500<br>     3-Year ROI: 9.5%<br>     Breakeven Period: 30 months<br>     </div>`)[0];
+                popup_9cf9d17e4958e7f36d18dbb6d7974f1a.setContent(html_81fb7082baf843678110a75c2e5c5f56);
+            
+        
+
+        circle_marker_177e2099cf6233475990218f9dbe4e50.bindPopup(popup_9cf9d17e4958e7f36d18dbb6d7974f1a)
+        ;
+
+        
+    
+    
+            var marker_11a02976faf3a2a7e276c96cc468b2ac = L.marker(
+                [36.3896, -77.4211],
+                {
+}
+            ).addTo(feature_group_a6b1857c6cd8d920c7efec9fdb115837);
+        
+    
+            var div_icon_87fe4d2fbb7567f6d22e3644bcf02d22 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 12pt; color: white; font-weight: bold; text-align: center;\"\u003e9\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+            marker_11a02976faf3a2a7e276c96cc468b2ac.setIcon(div_icon_87fe4d2fbb7567f6d22e3644bcf02d22);
+        
+    
+                marker_11a02976faf3a2a7e276c96cc468b2ac.setIcon(div_icon_87fe4d2fbb7567f6d22e3644bcf02d22);
+            
+    
+            var circle_marker_ff7aa8cf4792b4726fad7225fb6364b3 = L.circleMarker(
+                [36.4049, -76.7574],
+                {"bubblingMouseEvents": true, "color": "lightred", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightred", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 24.657534246575338, "stroke": true, "weight": 3}
+            ).addTo(feature_group_a6b1857c6cd8d920c7efec9fdb115837);
+        
+    
+        var popup_aaa90f549cd7166c0d64e61fd3701a87 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_3ccf942127f91776c76c83508d2aeac0 = $(`<div id="html_3ccf942127f91776c76c83508d2aeac0" style="width: 100.0%; height: 100.0%;">     <h3>Gatesville, Gates County</h3>     <b>OVERALL RANK: 10 of 12</b><br>     <b>FINAL SCORE: 44.4/100</b><br><br>          <b>Key Metrics:</b><br>     Population: 10,478<br>     Daily Traffic: 3,200<br>     Distance to Nearest Bank: 24.8 miles<br>     Banking Desert Severity: High<br>     County Tier Status: 2<br>     Competition Level: Low<br><br>          <b>Financial Projections:</b><br>     Estimated Annual Profit: $-121,500<br>     3-Year ROI: 8.8%<br>     Breakeven Period: 31 months<br>     </div>`)[0];
+                popup_aaa90f549cd7166c0d64e61fd3701a87.setContent(html_3ccf942127f91776c76c83508d2aeac0);
+            
+        
+
+        circle_marker_ff7aa8cf4792b4726fad7225fb6364b3.bindPopup(popup_aaa90f549cd7166c0d64e61fd3701a87)
+        ;
+
+        
+    
+    
+            var marker_f6f00733ea889a46dee1c35d1d8cc9d0 = L.marker(
+                [36.4049, -76.7574],
+                {
+}
+            ).addTo(feature_group_a6b1857c6cd8d920c7efec9fdb115837);
+        
+    
+            var div_icon_865271ed373fea207c5935d7df236ec3 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 12pt; color: white; font-weight: bold; text-align: center;\"\u003e10\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+            marker_f6f00733ea889a46dee1c35d1d8cc9d0.setIcon(div_icon_865271ed373fea207c5935d7df236ec3);
+        
+    
+                marker_f6f00733ea889a46dee1c35d1d8cc9d0.setIcon(div_icon_865271ed373fea207c5935d7df236ec3);
+            
+    
+            var circle_marker_564f4e2eea4e1ae24347cc9e60f4970c = L.circleMarker(
+                [35.9182, -76.2516],
+                {"bubblingMouseEvents": true, "color": "lightred", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightred", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 24.58904109589041, "stroke": true, "weight": 3}
+            ).addTo(feature_group_a6b1857c6cd8d920c7efec9fdb115837);
+        
+    
+        var popup_674af93c057e43b698a7cbc290ea9fe2 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_14e3faba826a33398a52fd2484082368 = $(`<div id="html_14e3faba826a33398a52fd2484082368" style="width: 100.0%; height: 100.0%;">     <h3>Columbia, Tyrrell County</h3>     <b>OVERALL RANK: 11 of 12</b><br>     <b>FINAL SCORE: 44.3/100</b><br><br>          <b>Key Metrics:</b><br>     Population: 3,245<br>     Daily Traffic: 2,800<br>     Distance to Nearest Bank: 28.5 miles<br>     Banking Desert Severity: Severe<br>     County Tier Status: 1<br>     Competition Level: nan<br><br>          <b>Financial Projections:</b><br>     Estimated Annual Profit: $-243,750<br>     3-Year ROI: 8.2%<br>     Breakeven Period: 32 months<br>     </div>`)[0];
+                popup_674af93c057e43b698a7cbc290ea9fe2.setContent(html_14e3faba826a33398a52fd2484082368);
+            
+        
+
+        circle_marker_564f4e2eea4e1ae24347cc9e60f4970c.bindPopup(popup_674af93c057e43b698a7cbc290ea9fe2)
+        ;
+
+        
+    
+    
+            var marker_7cb3e1f018c0fd0d60f4ced339e028ef = L.marker(
+                [35.9182, -76.2516],
+                {
+}
+            ).addTo(feature_group_a6b1857c6cd8d920c7efec9fdb115837);
+        
+    
+            var div_icon_d35a201720a0b0539d26b6dc67debc88 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 12pt; color: white; font-weight: bold; text-align: center;\"\u003e11\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+            marker_7cb3e1f018c0fd0d60f4ced339e028ef.setIcon(div_icon_d35a201720a0b0539d26b6dc67debc88);
+        
+    
+                marker_7cb3e1f018c0fd0d60f4ced339e028ef.setIcon(div_icon_d35a201720a0b0539d26b6dc67debc88);
+            
+    
+            var circle_marker_2c84dbf17ee065f996e38e70039a1d3d = L.circleMarker(
+                [35.4068, -76.3302],
+                {"bubblingMouseEvents": true, "color": "lightred", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightred", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20.0, "stroke": true, "weight": 3}
+            ).addTo(feature_group_a6b1857c6cd8d920c7efec9fdb115837);
+        
+    
+        var popup_e68405d84067a68374c40c66306e165b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5f339475598e0c67a8a72674ee894b6a = $(`<div id="html_5f339475598e0c67a8a72674ee894b6a" style="width: 100.0%; height: 100.0%;">     <h3>Swan Quarter, Hyde County</h3>     <b>OVERALL RANK: 12 of 12</b><br>     <b>FINAL SCORE: 37.6/100</b><br><br>          <b>Key Metrics:</b><br>     Population: 4,937<br>     Daily Traffic: 2,100<br>     Distance to Nearest Bank: 32.7 miles<br>     Banking Desert Severity: Severe<br>     County Tier Status: 1<br>     Competition Level: nan<br><br>          <b>Financial Projections:</b><br>     Estimated Annual Profit: $-253,000<br>     3-Year ROI: 7.8%<br>     Breakeven Period: 34 months<br>     </div>`)[0];
+                popup_e68405d84067a68374c40c66306e165b.setContent(html_5f339475598e0c67a8a72674ee894b6a);
+            
+        
+
+        circle_marker_2c84dbf17ee065f996e38e70039a1d3d.bindPopup(popup_e68405d84067a68374c40c66306e165b)
+        ;
+
+        
+    
+    
+            var marker_819690aa91a08456482417e3abeac582 = L.marker(
+                [35.4068, -76.3302],
+                {
+}
+            ).addTo(feature_group_a6b1857c6cd8d920c7efec9fdb115837);
+        
+    
+            var div_icon_c378c327967b5ddc2a3ae5c964cb21df = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 12pt; color: white; font-weight: bold; text-align: center;\"\u003e12\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+            marker_819690aa91a08456482417e3abeac582.setIcon(div_icon_c378c327967b5ddc2a3ae5c964cb21df);
+        
+    
+                marker_819690aa91a08456482417e3abeac582.setIcon(div_icon_c378c327967b5ddc2a3ae5c964cb21df);
+            
+    
+            feature_group_a6b1857c6cd8d920c7efec9fdb115837.addTo(map_676faac85e55f1f23b773728bac5d38e);
+        
+    
+            var feature_group_8da6ca0589c0625a33d3bf0481cb404d = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var layer_control_e91a53ea12381c49a57556a11d6f598a_layers = {
+                base_layers : {
+                    "cartodbpositron" : tile_layer_7cbc5904f3e02ae346b69d3d786c65eb,
+                },
+                overlays :  {
+                    "Major Cities" : feature_group_88fc234262052e7eb982ad54327f0a62,
+                    "Recommended Bank Locations" : feature_group_a6b1857c6cd8d920c7efec9fdb115837,
+                    "County Boundaries" : feature_group_8da6ca0589c0625a33d3bf0481cb404d,
+                },
+            };
+            let layer_control_e91a53ea12381c49a57556a11d6f598a = L.control.layers(
+                layer_control_e91a53ea12381c49a57556a11d6f598a_layers.base_layers,
+                layer_control_e91a53ea12381c49a57556a11d6f598a_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": true,
+  "autoZIndex": true,
+}
+            ).addTo(map_676faac85e55f1f23b773728bac5d38e);
+
+        
+</script>
+</html>
